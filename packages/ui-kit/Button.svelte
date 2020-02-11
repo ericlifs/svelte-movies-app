@@ -1,11 +1,23 @@
 <script>
-  export let buttonText = '';
+    export let text;
+    export let light = false;
 </script>
 
 <style>
-  button {
-    border-radius: 3px;
-  }
+    .button {
+        height: 40px;
+        display: flex;
+        border-radius: 20px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .light {
+        color: black;
+        background: white;
+    }
 </style>
 
-<button>{buttonText}</button>
+<div class="button" class:light={light} on:click>
+    <span class="button__text">{text}</span>
+</div>

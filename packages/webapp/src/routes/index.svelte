@@ -1,3 +1,34 @@
+<script context="module">
+	export async function preload({ params, query }) {
+		// the `slug` parameter is available because
+		// this file is called [slug].svelte
+		const res = await this.fetch(`https://api.themoviedb.org/3/movie/popular?api_key=fd02fbfbbe1a61bc406b87ca6d1852f1&language=en-US&page=1`);
+		const movies = await res.json();
+
+		if (res.status === 200) {
+			return { movies };
+		} else {
+			this.error(res.status, data.message);
+		}
+	}
+</script>
+
+<script>
+	import MovieHero from '@sapper-template/ui-kit/MovieHero.svelte';
+	import { getRandomItemOfArray } from '@helpers/array';
+	import { onMount } from 'svelte';
+
+	export let movies;
+
+	let currentHeroMovie = getRandomItemOfArray(movies.results);
+
+	onMount(() => {
+		setInterval(() => {
+			currentHeroMovie = getRandomItemOfArray(movies.results);
+		}, 10000);
+	});
+</script>
+
 <style>
 	h1, figure, p {
 		text-align: center;
@@ -32,15 +63,9 @@
 	}
 </style>
 
-<svelte:head>
-	<title>Sapper project template</title>
-</svelte:head>
-
-<h1>Great success!</h1>
-
-<figure>
-	<img alt='Borat' src='great-success.png'>
-	<figcaption>HIGH FIVE!</figcaption>
-</figure>
-
-<p><strong>Try editing this file (src/routes/index.svelte) to test live reloading.</strong></p>
+<MovieHero
+	title="{currentHeroMovie.title}"
+	description="{currentHeroMovie.overview}"
+	id={currentHeroMovie.id}
+	background="{`http://image.tmdb.org/t/p/w1280/${currentHeroMovie.backdrop_path}`}"
+/>
