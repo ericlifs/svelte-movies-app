@@ -9,7 +9,7 @@ storiesOf('Movie Hero', module)
             description: 'After splitting with the Joker, Harley Quinn joins superheroes Black Canary, Huntress and Renee Montoya to save a young girl from an evil crime lord.',
         },
     }))
-    .add('with hero background and description', () => ({
+    .add('with hero background, title and description', () => ({
         Component: MovieHero,
         props: {
             title: '1917',
@@ -17,7 +17,7 @@ storiesOf('Movie Hero', module)
             background: 'http://image.tmdb.org/t/p/w1280/5BwqwxMEjeFtdknRV792Svo0K1v.jpg',
         },
     }))
-    .add('with hero background, description and id', () => ({
+    .add('with hero background, title, description and id', () => ({
         Component: MovieHero,
         props: {
             title: '1917',
