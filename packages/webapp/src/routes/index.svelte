@@ -18,22 +18,11 @@
 	import MovieHero from '@sapper-template/ui-kit/MovieHero.svelte';
 	import MovieSubHero from '@sapper-template/ui-kit/MovieSubHero.svelte';
 	import { getRandomItemOfArray } from '@helpers/array';
+	import { getGenresForMovie } from '@helpers/movies';
 	import { onMount } from 'svelte';
 
 	export let movies;
 	export let genres;
-
-	const getGenresForMovie = movie => {
-		return (movie.genre_ids || []).reduce((memo, current) => {
-			const genre = (genres || []).find(({ id }) => id === current);
-
-			if (memo) {
-				return `${memo}, ${genre.name}`;
-			}
-
-			return genre.name;
-		}, '');
-	};
 
 	onMount(() => {
 		setInterval(() => {
@@ -42,7 +31,7 @@
 	});
 
 	let currentHeroMovie = getRandomItemOfArray(movies.results);
-	$: currentHeroMovieGenres = getGenresForMovie(currentHeroMovie);
+	$: currentHeroMovieGenres = getGenresForMovie(currentHeroMovie, genres);
 </script>
 
 <MovieHero
