@@ -28,6 +28,7 @@
         position: relative;
         object-fit: contain;
         background-size: 100%, cover !important;
+        background-position: 50% 0 !important;
         transition: all ease-in-out 400ms;
     }
 

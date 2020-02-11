@@ -6,6 +6,7 @@
   @import './styles/mixins.scss';
 
   nav {
+    background: black;
     border-bottom: 1px solid rgba(255, 62, 0, 0.1);
     font-weight: 300;
     padding: 0 1em;
@@ -17,11 +18,11 @@
 
     li {
       display: block;
-      color: red;
+      color: white;
       float: left;
 
       @include mobile {
-        color: blue;
+        color: white;
       }
     }
   }
