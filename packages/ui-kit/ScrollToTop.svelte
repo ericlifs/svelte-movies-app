@@ -1,16 +1,10 @@
 <script>
-    import { createEventDispatcher } from 'svelte';
-
-    const dispatch = createEventDispatcher();
-
     const goToTop = () => {
         window.scrollTo({
             left: 0,
             top: 0,
             behavior: 'smooth',
         });
-
-        dispatch('scroll-to-top');
     }
 </script>
 

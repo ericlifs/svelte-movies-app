@@ -57,19 +57,12 @@
 	}
 
 	const onScroll = () => {
-		if (!window.scrollY) {
-			scrolled = false;
-		}
+		scrolled = window.scrollY > 0;
 
 		if (Math.round(window.scrollY + window.innerHeight) >= Math.round(document.body.scrollHeight)) {
 			currentPage++;
-			scrolled = true;
 			getMoreMovies();
 		}
-	};
-
-	const onScrollToTop = () => {
-		scrolled = false;
 	};
 </script>
 
@@ -87,5 +80,5 @@
 />
 <MoviesGrid sectionTitle="Popular movies" movies={movies}/>
 {#if scrolled}
-	<ScrollToTop on:scroll-to-top="{onScrollToTop}"/>
+	<ScrollToTop/>
 {/if}
