@@ -26,7 +26,7 @@
 
     .movies-grid__movie:hover .movies-grid__movie__title {
         visibility: visible;
-        opacity: .7;
+        opacity: 1;
     }
 
     .movies-grid__movie__title {

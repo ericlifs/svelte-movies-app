@@ -6,7 +6,7 @@
     export let description;
     export let id = '';
 
-    $: backgroundImage = `background: linear-gradient(rgba(0, 0, 0, 0) 11%, rgba(0, 0, 0, 0.65) 80%), url(${background}), rgb(28, 28, 28);`;
+    $: backgroundImage = `background: linear-gradient(rgba(0, 0, 0, 0) 11%, rgba(0, 0, 0, 1) 100%), url(${background}), rgb(28, 28, 28);`;
 </script>
 
 <style>
