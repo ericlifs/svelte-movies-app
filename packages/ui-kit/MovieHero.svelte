@@ -9,16 +9,6 @@
     $: backgroundImage = `background: linear-gradient(rgba(0, 0, 0, 0) 11%, rgba(0, 0, 0, 0.65) 80%), url(${background}), rgb(28, 28, 28);`;
 </script>
 
-<div class="movie-hero" style="{backgroundImage}">
-    <div class="movie-hero__content">
-        <h1 class="movie-hero__title">{title}</h1>
-        <p class="movie-hero__description">{description}</p>
-        {#if id !== ''}
-            <Button text="view more" light={true}/>
-        {/if}
-    </div>
-</div>
-
 <style>
     .movie-hero {
         display: flex;
@@ -39,17 +29,18 @@
         left: 10%;
         right: 10%;
         align-items: center;
-        grid-template-columns: 1fr     130px;
-        grid-template-rows:    auto    auto;
+        grid-gap: 2rem;
+        grid-template-columns: 130px   1fr;
+        grid-template-rows:    auto    auto    auto;
         grid-template-areas:   "title          title"
-                               "description    button";
+                               "description    description"
+                               "button         button" ;
     }
 
     .movie-hero .movie-hero__title {
         color: white;
         font-size: 60px;
         grid-area: title;
-        margin-bottom: 2rem;
     }
 
     .movie-hero .movie-hero__description {
@@ -61,3 +52,13 @@
         grid-area: description;
     }
 </style>
+
+<div class="movie-hero" style="{backgroundImage}">
+    <div class="movie-hero__content">
+        <h1 class="movie-hero__title">{title}</h1>
+        <p class="movie-hero__description">{description}</p>
+        {#if id !== ''}
+            <Button text="view more" light/>
+        {/if}
+    </div>
+</div>

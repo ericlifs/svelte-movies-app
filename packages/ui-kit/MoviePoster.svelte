@@ -8,8 +8,6 @@
 <style>
     .movies-grid__movie {
         width: 100%;
-        max-width: 245px;
-        min-height: 300px;
         cursor: pointer;
         overflow: hidden;
         position: relative;
@@ -28,7 +26,7 @@
 
     .movies-grid__movie:hover .movies-grid__movie__title {
         visibility: visible;
-        opacity: 1;
+        opacity: .7;
     }
 
     .movies-grid__movie__title {

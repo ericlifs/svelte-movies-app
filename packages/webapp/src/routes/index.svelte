@@ -64,7 +64,7 @@
 
 <MovieHero
 	title="{currentHeroMovie.title}"
-	description="{maxLength(currentHeroMovie.overview, 100)}"
+	description="{maxLength(currentHeroMovie.overview, 200)}"
 	id={currentHeroMovie.id}
 	background="{`http://image.tmdb.org/t/p/w1280/${currentHeroMovie.backdrop_path}`}"
 />
@@ -74,4 +74,4 @@
 	releaseDate={currentHeroMovie.release_date}
 	genres={currentHeroMovieGenres}
 />
-<MoviesGrid movies={movies}/>
+<MoviesGrid sectionTitle="Popular movies" movies={movies}/>

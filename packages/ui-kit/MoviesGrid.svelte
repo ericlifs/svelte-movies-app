@@ -1,21 +1,34 @@
 <script>
+    import SectionTitle from './SectionTitle.svelte';
     import MoviePoster from './MoviePoster.svelte';
 
+    export let sectionTitle;
     export let movies;
 </script>
 
 <style>
     .movies-grid {
-        display: grid;
+        display: flex;
         padding: 0 10%;
+        margin: 60px 0;
+        flex-direction: column;
+    }
+
+    .movies-grid__grid {
+        display: grid;
         grid-gap: 40px;
-        margin: 40px 0;
-        grid-template-columns: repeat(4, 1fr);
+        margin-top: 40px;
+        grid-template-columns: repeat(5, 1fr);
     }
 </style>
 
 <div class="movies-grid">
-    {#each movies as movie (movie.id)}
-        <MoviePoster id={movie.id} poster={movie.poster_path} title={movie.title} rating={movie.vote_average} />
-    {/each}
+    {#if sectionTitle}
+        <SectionTitle title={sectionTitle} underlined />
+    {/if}
+    <div class="movies-grid__grid">
+        {#each movies as movie (movie.id)}
+            <MoviePoster id={movie.id} poster={movie.poster_path} title={movie.title} rating={movie.vote_average} />
+        {/each}
+    </div>
 </div>
