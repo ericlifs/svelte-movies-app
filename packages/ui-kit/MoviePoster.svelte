@@ -1,8 +1,16 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+
+    const dispatch = createEventDispatcher();
+
     export let id;
     export let poster;
     export let title = '-';
     export let rating = '-';
+
+    const onViewMore = () => {
+        dispatch('view-more', id);
+    }
 </script>
 
 <style>
@@ -59,7 +67,7 @@
     }
 </style>
 
-<div class="movies-grid__movie">
+<div class="movies-grid__movie" on:click={onViewMore}>
     <img class="movies-grid__movie__image" alt={id} src={`https://image.tmdb.org/t/p/w300/${poster}`} />
     <div class="movies-grid__movie__title">
         <span class="name">{title}</span>

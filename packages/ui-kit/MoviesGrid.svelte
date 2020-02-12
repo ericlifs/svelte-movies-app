@@ -28,7 +28,7 @@
     {/if}
     <div class="movies-grid__grid">
         {#each movies as movie (movie.id)}
-            <MoviePoster id={movie.id} poster={movie.poster_path} title={movie.title} rating={movie.vote_average} />
+            <MoviePoster id={movie.id} poster={movie.poster_path} title={movie.title} rating={movie.vote_average} on:view-more/>
         {/each}
     </div>
 </div>

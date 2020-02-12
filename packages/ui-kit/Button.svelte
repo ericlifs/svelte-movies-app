@@ -7,6 +7,8 @@
     .button {
         height: 40px;
         display: flex;
+        padding: 0 30px;
+        cursor: pointer;
         border-radius: 20px;
         align-items: center;
         justify-content: center;

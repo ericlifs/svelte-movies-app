@@ -1,5 +1,8 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
     import Button from './Button.svelte';
+
+    const dispatch = createEventDispatcher();
 
     export let title;
     export let background;
@@ -7,6 +10,10 @@
     export let id = '';
 
     $: backgroundImage = `background: linear-gradient(rgba(0, 0, 0, 0) 11%, rgba(0, 0, 0, 1) 100%), url(${background}), rgb(28, 28, 28);`;
+
+    const onViewMore = () => {
+        dispatch('view-more', id);
+    }
 </script>
 
 <style>
@@ -23,33 +30,27 @@
     }
 
     .movie-hero .movie-hero__content {
-        display: grid;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         position: absolute;
         bottom: 80px;
         left: 10%;
         right: 10%;
-        align-items: center;
-        grid-gap: 2rem;
-        grid-template-columns: 130px   1fr;
-        grid-template-rows:    auto    auto    auto;
-        grid-template-areas:   "title          title"
-                               "description    description"
-                               "button         button" ;
     }
 
     .movie-hero .movie-hero__title {
         color: white;
         font-size: 60px;
-        grid-area: title;
+        margin-bottom: 2rem;
     }
 
     .movie-hero .movie-hero__description {
-        margin: 0;
         color: white;
         max-width: 600px;
         font-size: 1rem;
         line-height: 1.5rem;
-        grid-area: description;
+        margin-bottom: 2rem;
     }
 </style>
 
@@ -58,7 +59,7 @@
         <h1 class="movie-hero__title">{title}</h1>
         <p class="movie-hero__description">{description}</p>
         {#if id !== ''}
-            <Button text="view more" light/>
+            <Button text="view more" light on:click="{onViewMore}"/>
         {/if}
     </div>
 </div>

@@ -15,6 +15,8 @@
 </script>
 
 <script>
+	import * as sapper from '@sapper/app';
+
 	import MovieHero from '@sapper-template/ui-kit/MovieHero.svelte';
 	import MovieSubHero from '@sapper-template/ui-kit/MovieSubHero.svelte';
 	import MoviesGrid from '@sapper-template/ui-kit/MoviesGrid.svelte';
@@ -47,7 +49,7 @@
 	let currentHeroMovie = getRandomItemOfArray(movies);
 	$: currentHeroMovieGenres = getGenresForMovie(currentHeroMovie, genres);
 
-	async function getMoreMovies() {
+	const getMoreMovies = async () => {
 		const moviesRes = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=fd02fbfbbe1a61bc406b87ca6d1852f1&language=en-US&page=${currentPage}`);
 		const moreMovies = await moviesRes.json();
 
@@ -64,6 +66,10 @@
 			getMoreMovies();
 		}
 	};
+
+	const goToMoviePage = ({ detail: id }) => {
+		sapper.goto(`movie/${id}`);
+	}
 </script>
 
 <MovieHero
@@ -71,6 +77,7 @@
 	description="{maxLength(currentHeroMovie.overview, 200)}"
 	id={currentHeroMovie.id}
 	background="{`http://image.tmdb.org/t/p/w1280/${currentHeroMovie.backdrop_path}`}"
+	on:view-more={goToMoviePage}
 />
 <MovieSubHero
 	rating={currentHeroMovie.vote_average}
@@ -78,7 +85,11 @@
 	releaseDate={currentHeroMovie.release_date}
 	genres={currentHeroMovieGenres}
 />
-<MoviesGrid sectionTitle="Popular movies" movies={movies}/>
+<MoviesGrid
+	movies={movies}
+	sectionTitle="Popular movies"
+	on:view-more={goToMoviePage}
+/>
 {#if scrolled}
 	<ScrollToTop/>
 {/if}
