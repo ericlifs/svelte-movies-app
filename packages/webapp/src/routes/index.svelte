@@ -3,7 +3,7 @@
 		const moviesRes = await this.fetch('https://api.themoviedb.org/3/movie/popular?api_key=fd02fbfbbe1a61bc406b87ca6d1852f1&language=en-US&page=1');
 		const genresRes = await this.fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=fd02fbfbbe1a61bc406b87ca6d1852f1&language=en-US');
 
-		const movies = await moviesRes.json();
+		const { results: movies } = await moviesRes.json();
 		const { genres } = await genresRes.json();
 
 		if (moviesRes.status === 200 && genresRes.status === 200) {
@@ -17,21 +17,48 @@
 <script>
 	import MovieHero from '@sapper-template/ui-kit/MovieHero.svelte';
 	import MovieSubHero from '@sapper-template/ui-kit/MovieSubHero.svelte';
+	import MoviesGrid from '@sapper-template/ui-kit/MoviesGrid.svelte';
+
 	import { getRandomItemOfArray } from '@helpers/array';
 	import { getGenresForMovie } from '@helpers/movies';
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 
+	let currentPage = 1;
 	export let movies;
 	export let genres;
 
 	onMount(() => {
 		setInterval(() => {
-			currentHeroMovie = getRandomItemOfArray(movies.results);
+			currentHeroMovie = getRandomItemOfArray(movies);
 		}, 10000);
+
+		window.addEventListener('scroll', onScroll);
 	});
 
-	let currentHeroMovie = getRandomItemOfArray(movies.results);
+	onDestroy(() => {
+		if (typeof window !== 'undefined') {
+			window.removeEventListener('scroll', onScroll);
+		}
+	});
+
+	let currentHeroMovie = getRandomItemOfArray(movies);
 	$: currentHeroMovieGenres = getGenresForMovie(currentHeroMovie, genres);
+
+	async function getMoreMovies() {
+		const moviesRes = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=fd02fbfbbe1a61bc406b87ca6d1852f1&language=en-US&page=${currentPage}`);
+		const moreMovies = await moviesRes.json();
+
+		if (moviesRes.status === 200) {
+			movies = [...movies, ...moreMovies.results];
+		}
+	}
+
+	const onScroll = () => {
+		if (Math.round(window.scrollY + window.innerHeight) >= Math.round(document.body.scrollHeight)) {
+			currentPage++;
+			getMoreMovies();
+		}
+	}
 </script>
 
 <MovieHero
@@ -46,3 +73,4 @@
 	releaseDate={currentHeroMovie.release_date}
 	genres={currentHeroMovieGenres}
 />
+<MoviesGrid movies={movies}/>
