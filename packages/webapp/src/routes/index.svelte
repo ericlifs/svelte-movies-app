@@ -21,6 +21,7 @@
 
 	import { getRandomItemOfArray } from '@helpers/array';
 	import { getGenresForMovie } from '@helpers/movies';
+	import { maxLength } from '@helpers/string';
 	import { onMount, onDestroy } from 'svelte';
 
 	let currentPage = 1;
@@ -63,7 +64,7 @@
 
 <MovieHero
 	title="{currentHeroMovie.title}"
-	description="{currentHeroMovie.overview}"
+	description="{maxLength(currentHeroMovie.overview, 100)}"
 	id={currentHeroMovie.id}
 	background="{`http://image.tmdb.org/t/p/w1280/${currentHeroMovie.backdrop_path}`}"
 />
