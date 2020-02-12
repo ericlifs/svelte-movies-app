@@ -18,12 +18,14 @@
 	import MovieHero from '@sapper-template/ui-kit/MovieHero.svelte';
 	import MovieSubHero from '@sapper-template/ui-kit/MovieSubHero.svelte';
 	import MoviesGrid from '@sapper-template/ui-kit/MoviesGrid.svelte';
+	import ScrollToTop from '@sapper-template/ui-kit/ScrollToTop.svelte';
 
 	import { getRandomItemOfArray } from '@helpers/array';
 	import { getGenresForMovie } from '@helpers/movies';
 	import { maxLength } from '@helpers/string';
 	import { onMount, onDestroy } from 'svelte';
 
+	let scrolled = false;
 	let currentPage = 1;
 	export let movies;
 	export let genres;
@@ -55,11 +57,20 @@
 	}
 
 	const onScroll = () => {
+		if (!window.scrollY) {
+			scrolled = false;
+		}
+
 		if (Math.round(window.scrollY + window.innerHeight) >= Math.round(document.body.scrollHeight)) {
 			currentPage++;
+			scrolled = true;
 			getMoreMovies();
 		}
-	}
+	};
+
+	const onScrollToTop = () => {
+		scrolled = false;
+	};
 </script>
 
 <MovieHero
@@ -75,3 +86,6 @@
 	genres={currentHeroMovieGenres}
 />
 <MoviesGrid sectionTitle="Popular movies" movies={movies}/>
+{#if scrolled}
+	<ScrollToTop on:scroll-to-top="{onScrollToTop}"/>
+{/if}

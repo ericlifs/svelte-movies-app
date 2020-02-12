@@ -13,6 +13,7 @@
         font-size: 2rem;
         text-transform: uppercase;
         text-align: right;
+        color: black;
     }
 
     .section-title__underline {
