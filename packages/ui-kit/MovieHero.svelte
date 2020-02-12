@@ -14,7 +14,7 @@
         <h1 class="movie-hero__title">{title}</h1>
         <p class="movie-hero__description">{description}</p>
         {#if id !== ''}
-            <Button text="View more" light={true}/>
+            <Button text="view more" light={true}/>
         {/if}
     </div>
 </div>
@@ -23,7 +23,7 @@
     .movie-hero {
         display: flex;
         width: 100%;
-        height: 40vh;
+        height: 60vh;
         background: black;
         position: relative;
         object-fit: contain;
