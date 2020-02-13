@@ -7,6 +7,10 @@
   "license": "MIT",
   "private": true,
   "defaultNamespace": "@sapper-template",
+  "scripts": {
+    "deploy": "now",
+    "now-start": "yarn workspace @svelte-movies-app/webapp dev"
+  },
   "workspaces": {
     "nohoist": [
       "**/svelte",
