@@ -12,10 +12,10 @@
 		const { results: recommendations } = await recommendationsRes.json();
 		const { results: reviews } = await reviewsRes.json();
 
-		if (res.status === 200 && creditsRes.status === 200) {
+		if (res.status === 200 && creditsRes.status === 200 && recommendationsRes.status === 200 && reviewsRes.status === 200) {
 			return { movie, reviews, cast: credits.cast.slice(0, 5), recommendations: recommendations.slice(0, 5) };
 		} else {
-			this.error(res.status, movie.message);
+			this.error(404, 'Not found');
 		}
 	}
 </script>
@@ -55,7 +55,7 @@
 	});
 
 	onDestroy(() => {
-	if (typeof window !== 'undefined') {
+		if (typeof window !== 'undefined') {
 			window.removeEventListener('scroll', onScroll);
 		}
 	});
