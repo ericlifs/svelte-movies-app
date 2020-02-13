@@ -4,6 +4,7 @@
     export let title;
     export let background;
     export let description;
+    export let showButton = true;
 
     $: backgroundImage = `background: linear-gradient(rgba(0, 0, 0, 0) 11%, rgba(0, 0, 0, 1) 100%), url(${background}), rgb(28, 28, 28);`;
 </script>
@@ -50,6 +51,8 @@
     <div class="movie-hero__content">
         <h1 class="movie-hero__title">{title}</h1>
         <p class="movie-hero__description">{description}</p>
-        <Button text="view more" light on:click/>
+        {#if showButton}
+            <Button text="view more" light on:click/>
+        {/if}
     </div>
 </div>

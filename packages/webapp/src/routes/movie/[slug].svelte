@@ -28,6 +28,7 @@
 	import GridItem from '@sapper-template/ui-kit/GridItem.svelte';
 	import ReviewsSlider from '@sapper-template/ui-kit/ReviewsSlider.svelte';
 	import Section from '@sapper-template/ui-kit/Section.svelte';
+	import Button from '@sapper-template/ui-kit/Button.svelte';
 
 	import Grid from '@components/Grid.svelte';
 	import { getStringFromMap } from '@helpers/array';
@@ -60,10 +61,13 @@
 	<title>{movie.title}</title>
 </svelte:head>
 
+<Button text="< Home" />
+
 <MovieHero
 	title="{movie.title}"
 	description="{movie.overview}"
 	background="{`http://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}"
+	showButton={false}
 />
 
 <Section>
