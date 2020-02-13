@@ -10,7 +10,6 @@
         background: black;
         padding: 80px 10%;
         color: white;
-        min-height: 360px;
     }
 
     .section__content.with-margin {

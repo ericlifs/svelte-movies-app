@@ -24,13 +24,15 @@
 	import { goto } from '@sapper/app';
 
 	import MovieHero from '@sapper-template/ui-kit/MovieHero.svelte';
-	import MovieSubHero from '@sapper-template/ui-kit/MovieSubHero.svelte';
+	import InformationItem from '@sapper-template/ui-kit/InformationItem.svelte';
 	import GridItem from '@sapper-template/ui-kit/GridItem.svelte';
 	import ReviewsSlider from '@sapper-template/ui-kit/ReviewsSlider.svelte';
+	import Section from '@sapper-template/ui-kit/Section.svelte';
 
 	import Grid from '@components/Grid.svelte';
+	import { getStringFromMap } from '@helpers/array';
 	import { getGenresForMovie } from '@helpers/movies';
-	import { maxLength } from '@helpers/string';
+	import { maxLength, toCurrency } from '@helpers/string';
 
 	export let movie;
 	export let cast;
@@ -43,10 +45,16 @@
 		content: maxLength(review.content, 800),
 	}));
 
-	console.log(movie);
-
 	const goToMoviePage = id => goto(`movie/${id}`)
 </script>
+
+<style lang="scss">
+	.movie-information {
+		display: grid;
+		grid-gap: 40px;
+		grid-template-columns: repeat(3, 1fr);
+	}
+</style>
 
 <svelte:head>
 	<title>{movie.title}</title>
@@ -57,12 +65,20 @@
 	description="{movie.overview}"
 	background="{`http://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}"
 />
-<MovieSubHero
-	rating={movie.vote_average}
-	ratingVotes={movie.vote_count}
-	releaseDate={movie.release_date}
-	genres={movieGenres}
-/>
+
+<Section>
+	<div class="movie-information">
+		<InformationItem title="Rating" value={movie.vote_average} />
+		<InformationItem title="Release Date" value={movie.release_date} />
+		<InformationItem title="Rating" value={movieGenres} />
+		<InformationItem title="Budget" value={toCurrency(movie.budget)} />
+		<InformationItem title="Revenue" value={toCurrency(movie.revenue)} />
+		<InformationItem title="Popularity" value={movie.popularity} />
+		<InformationItem title="Duration" value={`${movie.runtime}mins`} />
+		<InformationItem title="Spoken languages" value={getStringFromMap(movie.spoken_languages, 'name')} />
+		<InformationItem title="Producers" value={getStringFromMap(movie.production_companies, 'name')} />
+	</div>
+</Section>
 
 <Grid sectionTitle="Cast">
 	{#each cast as actor (actor.id)}
