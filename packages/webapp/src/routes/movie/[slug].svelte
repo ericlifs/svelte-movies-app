@@ -5,15 +5,17 @@
 		const res = await this.fetch(`https://api.themoviedb.org/3/movie/${params.slug}?api_key=fd02fbfbbe1a61bc406b87ca6d1852f1&language=en-US`);
 		const creditsRes = await this.fetch(`https://api.themoviedb.org/3/movie/${params.slug}/credits?api_key=fd02fbfbbe1a61bc406b87ca6d1852f1`);
 		const recommendationsRes = await this.fetch(`https://api.themoviedb.org/3/movie/${params.slug}/recommendations?api_key=fd02fbfbbe1a61bc406b87ca6d1852f1&language=en-US&page=1`);
+		const reviewsRes = await this.fetch(`https://api.themoviedb.org/3/movie/${params.slug}/reviews?api_key=fd02fbfbbe1a61bc406b87ca6d1852f1&language=en-US&page=1`);
 
-		const data = await res.json();
+		const movie = await res.json();
 		const credits = await creditsRes.json();
 		const { results: recommendations } = await recommendationsRes.json();
+		const { results: reviews } = await reviewsRes.json();
 
 		if (res.status === 200 && creditsRes.status === 200) {
-			return { movie: data, cast: credits.cast.slice(0, 5), recommendations: recommendations.slice(0, 5) };
+			return { movie, reviews, cast: credits.cast.slice(0, 5), recommendations: recommendations.slice(0, 5) };
 		} else {
-			this.error(res.status, data.message);
+			this.error(res.status, movie.message);
 		}
 	}
 </script>
@@ -24,19 +26,24 @@
 	import MovieHero from '@sapper-template/ui-kit/MovieHero.svelte';
 	import MovieSubHero from '@sapper-template/ui-kit/MovieSubHero.svelte';
 	import GridItem from '@sapper-template/ui-kit/GridItem.svelte';
+	import ReviewsSlider from '@sapper-template/ui-kit/ReviewsSlider.svelte';
 
 	import Grid from '@components/Grid.svelte';
 	import { getGenresForMovie } from '@helpers/movies';
+	import { maxLength } from '@helpers/string';
 
 	export let movie;
 	export let cast;
 	export let recommendations;
+	export let reviews;
 
 	$: movieGenres = getGenresForMovie(movie);
+	$: mappedReviews = reviews.map(review => ({
+		...review,
+		content: maxLength(review.content, 800),
+	}));
 
-	const goToMoviePage = id => {
-		goto(`movie/${id}`);
-	}
+	const goToMoviePage = id => goto(`movie/${id}`)
 </script>
 
 <svelte:head>
@@ -54,6 +61,8 @@
 	releaseDate={movie.release_date}
 	genres={movieGenres}
 />
+
+<ReviewsSlider reviews={mappedReviews} />
 
 <Grid sectionTitle="Cast">
 	{#each cast as actor (actor.id)}
