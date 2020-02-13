@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "sapper dev",
-    "build": "yarn install && sapper build --legacy",
+    "build": "sapper build --legacy",
     "export": "sapper export --legacy",
     "start": "node __sapper__/build",
     "cy:run": "cypress run",
