@@ -12,6 +12,8 @@
         border-radius: 20px;
         align-items: center;
         justify-content: center;
+        color: white;
+        background: black;
     }
 
     .light {

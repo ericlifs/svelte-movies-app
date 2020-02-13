@@ -1,43 +1,34 @@
 <script>
-    import { createEventDispatcher } from 'svelte';
-
-    const dispatch = createEventDispatcher();
-
-    export let id;
-    export let poster;
+    export let background;
     export let title = '-';
-    export let rating = '-';
-
-    const onViewMore = () => {
-        dispatch('view-more', id);
-    }
+    export let subtitle = '-';
 </script>
 
 <style>
-    .movies-grid__movie {
+    .grid-item {
         width: 100%;
         cursor: pointer;
         overflow: hidden;
         position: relative;
     }
 
-    .movies-grid__movie__image {
+    .grid-item__background {
         transform: scale(1.1);
         transition: transform ease-in-out 400ms;
         height: 100%;
         width: 100%;
     }
 
-    .movies-grid__movie:hover .movies-grid__movie__image {
+    .grid-item:hover .grid-item__background {
         transform: scale(1.2);
     }
 
-    .movies-grid__movie:hover .movies-grid__movie__title {
+    .grid-item:hover .grid-item__description {
         visibility: visible;
         opacity: 1;
     }
 
-    .movies-grid__movie__title {
+    .grid-item__description {
         transition: all ease-in-out 400ms;
         justify-content: center;
         flex-direction: column;
@@ -67,10 +58,10 @@
     }
 </style>
 
-<div class="movies-grid__movie" on:click={onViewMore}>
-    <img class="movies-grid__movie__image" alt={id} src={`https://image.tmdb.org/t/p/w300/${poster}`} />
-    <div class="movies-grid__movie__title">
+<div class="grid-item" on:click>
+    <img class="grid-item__background" alt={title} src={`https://image.tmdb.org/t/p/w300/${background}`} />
+    <div class="grid-item__description">
         <span class="name">{title}</span>
-        <span class="rating">Rating {rating}</span>
+        <span class="rating">{subtitle}</span>
     </div>
 </div>

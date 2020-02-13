@@ -1,19 +1,11 @@
 <script>
-    import { createEventDispatcher } from 'svelte';
     import Button from './Button.svelte';
-
-    const dispatch = createEventDispatcher();
 
     export let title;
     export let background;
     export let description;
-    export let id = '';
 
     $: backgroundImage = `background: linear-gradient(rgba(0, 0, 0, 0) 11%, rgba(0, 0, 0, 1) 100%), url(${background}), rgb(28, 28, 28);`;
-
-    const onViewMore = () => {
-        dispatch('view-more', id);
-    }
 </script>
 
 <style>
@@ -58,8 +50,6 @@
     <div class="movie-hero__content">
         <h1 class="movie-hero__title">{title}</h1>
         <p class="movie-hero__description">{description}</p>
-        {#if id !== ''}
-            <Button text="view more" light on:click="{onViewMore}"/>
-        {/if}
+        <Button text="view more" light on:click/>
     </div>
 </div>

@@ -15,15 +15,16 @@
 </script>
 
 <script>
-	import * as sapper from '@sapper/app';
+	import { goto } from '@sapper/app';
 
 	import MovieHero from '@sapper-template/ui-kit/MovieHero.svelte';
 	import MovieSubHero from '@sapper-template/ui-kit/MovieSubHero.svelte';
-	import MoviesGrid from '@sapper-template/ui-kit/MoviesGrid.svelte';
 	import ScrollToTop from '@sapper-template/ui-kit/ScrollToTop.svelte';
+	import GridItem from '@sapper-template/ui-kit/GridItem.svelte';
 
+	import Grid from '@components/Grid.svelte';
 	import { getRandomItemOfArray } from '@helpers/array';
-	import { getGenresForMovie } from '@helpers/movies';
+	import { getGenresForPopularMovie } from '@helpers/movies';
 	import { maxLength } from '@helpers/string';
 	import { onMount, onDestroy } from 'svelte';
 
@@ -47,7 +48,7 @@
 	});
 
 	let currentHeroMovie = getRandomItemOfArray(movies);
-	$: currentHeroMovieGenres = getGenresForMovie(currentHeroMovie, genres);
+	$: currentHeroMovieGenres = getGenresForPopularMovie(currentHeroMovie, genres);
 
 	const getMoreMovies = async () => {
 		const moviesRes = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=fd02fbfbbe1a61bc406b87ca6d1852f1&language=en-US&page=${currentPage}`);
@@ -56,7 +57,7 @@
 		if (moviesRes.status === 200) {
 			movies = [...movies, ...moreMovies.results];
 		}
-	}
+	};
 
 	const onScroll = () => {
 		scrolled = window.scrollY > 0;
@@ -67,17 +68,20 @@
 		}
 	};
 
-	const goToMoviePage = ({ detail: id }) => {
-		sapper.goto(`movie/${id}`);
+	const goToMoviePage = (id) => {
+		goto(`movie/${id}`);
 	}
 </script>
+
+<svelte:head>
+	<title>Svelte Cinema</title>
+</svelte:head>
 
 <MovieHero
 	title="{currentHeroMovie.title}"
 	description="{maxLength(currentHeroMovie.overview, 200)}"
-	id={currentHeroMovie.id}
 	background="{`http://image.tmdb.org/t/p/w1280/${currentHeroMovie.backdrop_path}`}"
-	on:view-more={goToMoviePage}
+	on:click={() => goToMoviePage(currentHeroMovie.id)}
 />
 <MovieSubHero
 	rating={currentHeroMovie.vote_average}
@@ -85,11 +89,16 @@
 	releaseDate={currentHeroMovie.release_date}
 	genres={currentHeroMovieGenres}
 />
-<MoviesGrid
-	movies={movies}
-	sectionTitle="Popular movies"
-	on:view-more={goToMoviePage}
-/>
+<Grid sectionTitle="Popular movies">
+	{#each movies as movie (movie.id)}
+		<GridItem
+			background={movie.poster_path}
+			title={movie.title}
+			subtitle={`Rating: ${movie.vote_average}`}
+			on:click={() => goToMoviePage(movie.id)}
+		/>
+	{/each}
+</Grid>
 {#if scrolled}
 	<ScrollToTop/>
 {/if}
