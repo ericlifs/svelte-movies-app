@@ -62,13 +62,13 @@
 	genres={movieGenres}
 />
 
-<ReviewsSlider reviews={mappedReviews} />
-
 <Grid sectionTitle="Cast">
 	{#each cast as actor (actor.id)}
 		<GridItem background={actor.profile_path} title={actor.character} subtitle={actor.name}/>
 	{/each}
 </Grid>
+
+<ReviewsSlider reviews={mappedReviews} sectionTitle="Reviews" />
 
 <Grid sectionTitle="Recommendations">
 	{#each recommendations as movie (movie.id)}

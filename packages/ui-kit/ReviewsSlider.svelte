@@ -1,6 +1,9 @@
 <script>
+    import SectionTitle from './SectionTitle.svelte';
+
     export let reviews;
     export let activeIndex = 0;
+    export let sectionTitle = '';
 
     const nextSlide = () => {
         if (activeIndex + 1 === reviews.length) {
@@ -18,8 +21,6 @@
         activeIndex = activeIndex - 1;
     };
 
-    console.log(reviews);
-
     $: activeSlide = reviews[activeIndex];
 </script>
 
@@ -30,14 +31,15 @@
         padding: 80px 10%;
         color: white;
         height: 360px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
     }
 
     .reviews-slider__author {
         font-size: 4rem;
         margin-bottom: 1.5rem;
+    }
+
+    .reviews-slider__author.with-margin {
+        margin-top: 2.5rem;
     }
 
     .reviews-slider__content {
@@ -69,12 +71,15 @@
 </style>
 
 <div class="reviews-slider">
+    {#if sectionTitle}
+        <SectionTitle title={sectionTitle} underlined light />
+    {/if}
     {#if reviews.length > 1}
         <div class="reviews-slider__previous-slide" on:click={previousSlide}>‹</div>
         <div class="reviews-slider__next-slide" on:click={nextSlide}>›</div>
     {/if}
 
-    <h2 class="reviews-slider__author">{activeSlide.author}</h2>
+    <h2 class="reviews-slider__author" class:with-margin={sectionTitle !== ''}>{activeSlide.author}</h2>
     <h2 class="reviews-slider__content">{activeSlide.content}</h2>
 
     {#if activeSlide.url}
