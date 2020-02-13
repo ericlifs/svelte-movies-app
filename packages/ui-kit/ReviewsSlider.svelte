@@ -1,5 +1,5 @@
 <script>
-    import SectionTitle from './SectionTitle.svelte';
+    import Section from './Section.svelte';
 
     export let reviews;
     export let activeIndex = 0;
@@ -25,21 +25,9 @@
 </script>
 
 <style>
-    .reviews-slider {
-        position: relative;
-        background: black;
-        padding: 80px 10%;
-        color: white;
-        height: 360px;
-    }
-
     .reviews-slider__author {
         font-size: 4rem;
         margin-bottom: 1.5rem;
-    }
-
-    .reviews-slider__author.with-margin {
-        margin-top: 2.5rem;
     }
 
     .reviews-slider__content {
@@ -70,10 +58,7 @@
     }
 </style>
 
-<div class="reviews-slider">
-    {#if sectionTitle}
-        <SectionTitle title={sectionTitle} underlined light />
-    {/if}
+<Section sectionTitle={sectionTitle}>
     {#if reviews.length > 1}
         <div class="reviews-slider__previous-slide" on:click={previousSlide}>‹</div>
         <div class="reviews-slider__next-slide" on:click={nextSlide}>›</div>
@@ -87,4 +72,4 @@
             Read more at: <a href={activeSlide.url} target="_blank">{activeSlide.url}</a>
         </h4>
     {/if}
-</div>
+</Section>

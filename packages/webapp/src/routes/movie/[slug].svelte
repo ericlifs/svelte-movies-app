@@ -43,6 +43,8 @@
 		content: maxLength(review.content, 800),
 	}));
 
+	console.log(movie);
+
 	const goToMoviePage = id => goto(`movie/${id}`)
 </script>
 
