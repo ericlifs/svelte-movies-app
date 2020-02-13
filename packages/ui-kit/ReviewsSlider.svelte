@@ -18,6 +18,8 @@
         activeIndex = activeIndex - 1;
     };
 
+    console.log(reviews);
+
     $: activeSlide = reviews[activeIndex];
 </script>
 
