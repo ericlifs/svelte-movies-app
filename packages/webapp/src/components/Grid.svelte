@@ -1,5 +1,5 @@
 <script>
-    import SectionTitle from '@sapper-template/ui-kit/SectionTitle.svelte';
+    import SectionTitle from '@svelte-movies-app/ui-kit/SectionTitle.svelte';
 
     export let sectionTitle;
 </script>

@@ -1,6 +1,6 @@
 <script>
   import { goto } from '@sapper/app';
-  import Header from '@sapper-template/ui-kit/Header.svelte';
+  import Header from '@svelte-movies-app/ui-kit/Header.svelte';
 
   const goToHomePage = () => {
     goto('');

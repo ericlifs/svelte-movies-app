@@ -17,10 +17,10 @@
 <script>
 	import { goto } from '@sapper/app';
 
-	import MovieHero from '@sapper-template/ui-kit/MovieHero.svelte';
-	import MovieSubHero from '@sapper-template/ui-kit/MovieSubHero.svelte';
-	import ScrollToTop from '@sapper-template/ui-kit/ScrollToTop.svelte';
-	import GridItem from '@sapper-template/ui-kit/GridItem.svelte';
+	import MovieHero from '@svelte-movies-app/ui-kit/MovieHero.svelte';
+	import MovieSubHero from '@svelte-movies-app/ui-kit/MovieSubHero.svelte';
+	import ScrollToTop from '@svelte-movies-app/ui-kit/ScrollToTop.svelte';
+	import GridItem from '@svelte-movies-app/ui-kit/GridItem.svelte';
 
 	import Grid from '@components/Grid.svelte';
 	import { getRandomItemOfArray } from '@helpers/array';

@@ -24,13 +24,13 @@
 	import { goto } from '@sapper/app';
 	import { onMount, onDestroy } from 'svelte';
 
-	import MovieHero from '@sapper-template/ui-kit/MovieHero.svelte';
-	import InformationItem from '@sapper-template/ui-kit/InformationItem.svelte';
-	import GridItem from '@sapper-template/ui-kit/GridItem.svelte';
-	import ReviewsSlider from '@sapper-template/ui-kit/ReviewsSlider.svelte';
-	import Section from '@sapper-template/ui-kit/Section.svelte';
-	import Button from '@sapper-template/ui-kit/Button.svelte';
-	import ScrollToTop from '@sapper-template/ui-kit/ScrollToTop.svelte';
+	import MovieHero from '@svelte-movies-app/ui-kit/MovieHero.svelte';
+	import InformationItem from '@svelte-movies-app/ui-kit/InformationItem.svelte';
+	import GridItem from '@svelte-movies-app/ui-kit/GridItem.svelte';
+	import ReviewsSlider from '@svelte-movies-app/ui-kit/ReviewsSlider.svelte';
+	import Section from '@svelte-movies-app/ui-kit/Section.svelte';
+	import Button from '@svelte-movies-app/ui-kit/Button.svelte';
+	import ScrollToTop from '@svelte-movies-app/ui-kit/ScrollToTop.svelte';
 
 	import Grid from '@components/Grid.svelte';
 	import { getStringFromMap } from '@helpers/array';

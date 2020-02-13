@@ -1,5 +1,5 @@
 {
-  "name": "@sapper-template/ui-kit",
+  "name": "@svelte-movies-app/ui-kit",
   "description": "ui-kit",
   "version": "0.0.1",
   "scripts": {

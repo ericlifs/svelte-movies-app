@@ -1,5 +1,5 @@
 {
-  "name": "@sapper-template/webapp",
+  "name": "@svelte-movies-app/webapp",
   "description": "webapp",
   "version": "0.0.1",
   "scripts": {
@@ -12,7 +12,7 @@
     "test": "run-p --race dev cy:run"
   },
   "dependencies": {
-    "@sapper-template/ui-kit": "0.0.1",
+    "@svelte-movies-app/ui-kit": "0.0.1",
     "compression": "^1.7.1",
     "cross-env": "5.0.5",
     "polka": "next",
