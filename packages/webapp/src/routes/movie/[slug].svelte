@@ -22,6 +22,7 @@
 
 <script>
 	import { goto } from '@sapper/app';
+	import { onMount, onDestroy } from 'svelte';
 
 	import MovieHero from '@sapper-template/ui-kit/MovieHero.svelte';
 	import InformationItem from '@sapper-template/ui-kit/InformationItem.svelte';
@@ -29,6 +30,7 @@
 	import ReviewsSlider from '@sapper-template/ui-kit/ReviewsSlider.svelte';
 	import Section from '@sapper-template/ui-kit/Section.svelte';
 	import Button from '@sapper-template/ui-kit/Button.svelte';
+	import ScrollToTop from '@sapper-template/ui-kit/ScrollToTop.svelte';
 
 	import Grid from '@components/Grid.svelte';
 	import { getStringFromMap } from '@helpers/array';
@@ -40,13 +42,27 @@
 	export let recommendations;
 	export let reviews;
 
+	let scrolled = false;
+
 	$: movieGenres = getGenresForMovie(movie);
 	$: mappedReviews = reviews.map(review => ({
 		...review,
 		content: maxLength(review.content, 800),
 	}));
 
-	const goToMoviePage = id => goto(`movie/${id}`)
+	onMount(() => {
+		window.addEventListener('scroll', onScroll);
+	});
+
+	onDestroy(() => {
+	if (typeof window !== 'undefined') {
+			window.removeEventListener('scroll', onScroll);
+		}
+	});
+
+	const goToHomePage = () => goto('');
+	const goToMoviePage = id => goto(`movie/${id}`);
+	const onScroll = () => scrolled = window.scrollY > 0;
 </script>
 
 <style lang="scss">
@@ -55,13 +71,30 @@
 		grid-gap: 40px;
 		grid-template-columns: repeat(3, 1fr);
 	}
+
+	.buttons-wrapper {
+		position: fixed;
+		display: flex;
+		right: 10%;
+		z-index: 1;
+		left: 10%;
+		top: 80px;
+		align-items: center;
+		justify-content: space-between;
+	}
 </style>
 
 <svelte:head>
 	<title>{movie.title}</title>
 </svelte:head>
 
-<Button text="< Home" />
+<div class="buttons-wrapper">
+	<Button text="< Home" on:click={goToHomePage} light/>
+	{#if scrolled}
+		<ScrollToTop light/>
+	{/if}
+</div>
+
 
 <MovieHero
 	title="{movie.title}"
@@ -72,7 +105,7 @@
 
 <Section>
 	<div class="movie-information">
-		<InformationItem title="Rating" value={movie.vote_average} />
+		<InformationItem title="Rating" value={`${movie.vote_average} (${movie.vote_count} votes)`} />
 		<InformationItem title="Release Date" value={movie.release_date} />
 		<InformationItem title="Rating" value={movieGenres} />
 		<InformationItem title="Budget" value={toCurrency(movie.budget)} />
@@ -90,7 +123,9 @@
 	{/each}
 </Grid>
 
-<ReviewsSlider reviews={mappedReviews} sectionTitle="Reviews" />
+{#if mappedReviews.length}
+	<ReviewsSlider reviews={mappedReviews} sectionTitle="Reviews" />
+{/if}
 
 <Grid sectionTitle="Recommendations">
 	{#each recommendations as movie (movie.id)}

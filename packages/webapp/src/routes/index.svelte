@@ -73,6 +73,14 @@
 	}
 </script>
 
+<style lang="scss">
+	.scroll-to-top-wrapper {
+		position: fixed;
+		bottom: 80px;
+		right: 80px;
+	}
+</style>
+
 <svelte:head>
 	<title>Svelte Cinema</title>
 </svelte:head>
@@ -100,5 +108,7 @@
 	{/each}
 </Grid>
 {#if scrolled}
-	<ScrollToTop/>
+	<div class="scroll-to-top-wrapper">
+		<ScrollToTop/>
+	</div>
 {/if}

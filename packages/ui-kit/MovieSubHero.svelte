@@ -21,7 +21,7 @@
 </style>
 
 <div class="movie-subhero">
-    <InformationItem title="Rating" value={`${rating} (${ratingVotes}) votes)`} />
+    <InformationItem title="Rating" value={`${rating} (${ratingVotes} votes)`} />
     <InformationItem title="Release date" value={releaseDate} />
     <InformationItem title="Genres" value={genres} />
 </div>
