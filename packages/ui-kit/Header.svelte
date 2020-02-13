@@ -1,3 +1,13 @@
+<script>
+    import { createEventDispatcher } from 'svelte';
+
+    const dispatch = createEventDispatcher();
+
+    const onLogoClick = () => {
+        dispatch('logo-click');
+    }
+</script>
+
 <style>
     .header {
         display: flex;
@@ -14,6 +24,7 @@
     }
 
     .logo {
+        cursor: pointer;
         color: white;
         font-size: 2rem;
         text-transform: uppercase;
@@ -31,7 +42,7 @@
 </style>
 
 <header class="header">
-    <div class="logo">Sapper movie app</div>
+    <div class="logo" on:click={onLogoClick}>Sapper movie app</div>
     <a class="github" href="https://github.com/ericlifs/svelte-movies-app" target="_blank">
         Made by @ericlifs
         <img src="images/github.png" alt="github"/>

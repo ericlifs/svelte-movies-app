@@ -1,5 +1,10 @@
 <script>
+  import { goto } from '@sapper/app';
   import Header from '@sapper-template/ui-kit/Header.svelte';
+
+  const goToHomePage = () => {
+    goto('');
+  }
 </script>
 
 <style lang="scss" global>
@@ -8,7 +13,6 @@
   main {
     position: relative;
     background-color: white;
-    box-sizing: border-box;
   }
 
   .logo {
@@ -16,7 +20,7 @@
   }
 </style>
 
-<Header/>
+<Header on:logo-click={goToHomePage}/>
 
 <main>
   <slot />

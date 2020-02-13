@@ -38,7 +38,7 @@
         display: flex;
         padding: 10px;
         color: white;
-        height: 50px;
+        min-height: 50px;
         opacity: 0;
         bottom: 0;
         right: 0;

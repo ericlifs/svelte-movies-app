@@ -112,6 +112,10 @@ body {
   line-height: 1;
   font-family: 'Raleway', sans-serif;
 
+  * {
+    box-sizing: border-box;
+  }
+
   .reset-line-height {
     line-height: 0;
   }
