@@ -4,4 +4,5 @@ module.exports = {
   singleQuote: true,
   trailingComma: 'es5',
   plugins: ['svelte'],
+  printWidth: 120,
 }
