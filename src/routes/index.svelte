@@ -93,7 +93,7 @@
 </style>
 
 <svelte:head>
-  <title>Svelte Cinema</title>
+  <title>Sapper Movie App</title>
 </svelte:head>
 
 <MovieHero
