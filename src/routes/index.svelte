@@ -1,11 +1,12 @@
 <script context="module">
+  import { getUrlForRequest } from '@config'
+  import ENDPOINTS from '@config/endpoints'
+
   export async function preload({ params, query }) {
     const moviesRes = await this.fetch(
-      'https://api.themoviedb.org/3/movie/popular?api_key=fd02fbfbbe1a61bc406b87ca6d1852f1&language=en-US&page=1'
+      getUrlForRequest(`${ENDPOINTS.MOVIE}/${ENDPOINTS.POPULAR}`)
     )
-    const genresRes = await this.fetch(
-      'https://api.themoviedb.org/3/genre/movie/list?api_key=fd02fbfbbe1a61bc406b87ca6d1852f1&language=en-US'
-    )
+    const genresRes = await this.fetch(getUrlForRequest(ENDPOINTS.GENRES))
 
     const { results: movies } = await moviesRes.json()
     const { genres } = await genresRes.json()
@@ -56,7 +57,7 @@
 
   const getMoreMovies = async () => {
     const moviesRes = await fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=fd02fbfbbe1a61bc406b87ca6d1852f1&language=en-US&page=${currentPage}`
+      getUrlForRequest(`${ENDPOINTS.MOVIE}/${ENDPOINTS.POPULAR}`, currentPage)
     )
     const moreMovies = await moviesRes.json()
 

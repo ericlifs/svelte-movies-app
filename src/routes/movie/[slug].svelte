@@ -1,18 +1,21 @@
 <script context="module">
+  import { getUrlForRequest } from '@config'
+  import ENDPOINTS from '@config/endpoints'
+
   export async function preload({ params, query }) {
-    // the `slug` parameter is available because
-    // this file is called [slug].svelte
     const res = await this.fetch(
-      `https://api.themoviedb.org/3/movie/${params.slug}?api_key=fd02fbfbbe1a61bc406b87ca6d1852f1&language=en-US`
+      getUrlForRequest(`${ENDPOINTS.MOVIE}/${params.slug}`)
     )
     const creditsRes = await this.fetch(
-      `https://api.themoviedb.org/3/movie/${params.slug}/credits?api_key=fd02fbfbbe1a61bc406b87ca6d1852f1`
+      getUrlForRequest(`${ENDPOINTS.MOVIE}/${params.slug}/${ENDPOINTS.CREDITS}`)
     )
     const recommendationsRes = await this.fetch(
-      `https://api.themoviedb.org/3/movie/${params.slug}/recommendations?api_key=fd02fbfbbe1a61bc406b87ca6d1852f1&language=en-US&page=1`
+      getUrlForRequest(
+        `${ENDPOINTS.MOVIE}/${params.slug}/${ENDPOINTS.RECOMMENDATIONS}`
+      )
     )
     const reviewsRes = await this.fetch(
-      `https://api.themoviedb.org/3/movie/${params.slug}/reviews?api_key=fd02fbfbbe1a61bc406b87ca6d1852f1&language=en-US&page=1`
+      getUrlForRequest(`${ENDPOINTS.MOVIE}/${params.slug}/${ENDPOINTS.REVIEWS}`)
     )
 
     const movie = await res.json()
