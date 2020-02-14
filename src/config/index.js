@@ -7,4 +7,4 @@ export const getUrlForRequest = (endpoint = '', page = 1) =>
   `${CONFIG.API_BASE_PATH}${endpoint}?api_key=${CONFIG.API_AUTH_KEY}&language=en-US&page=${page}`
 
 export const getUrlForAsset = (asset, size) =>
-  `http://image.tmdb.org/t/p/w${size}/${asset}`
+  `https://image.tmdb.org/t/p/w${size}/${asset}`
