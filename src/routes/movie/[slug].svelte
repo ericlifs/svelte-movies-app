@@ -54,6 +54,7 @@
   import ScrollToTop from '@components/ScrollToTop.svelte'
   import Grid from '@components/Grid.svelte'
 
+  import { getUrlForAsset } from '@config'
   import { getStringFromMap } from '@helpers/array'
   import { getGenresForMovie } from '@helpers/movies'
   import { maxLength, toCurrency } from '@helpers/string'
@@ -119,7 +120,7 @@
 <MovieHero
   title={movie.title}
   description={movie.overview}
-  background={`http://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}
+  background={getUrlForAsset(movie.backdrop_path, 1280)}
   showButton={false} />
 
 <Section>

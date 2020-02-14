@@ -1,4 +1,6 @@
 <script>
+  import { getUrlForAsset } from '@config'
+
   export let background
   export let title = '-'
   export let subtitle = '-'
@@ -62,7 +64,7 @@
   <img
     class="grid-item__background"
     alt={title}
-    src={`https://image.tmdb.org/t/p/w300/${background}`} />
+    src={getUrlForAsset(background, 300)} />
   <div class="grid-item__description">
     <span class="name">{title}</span>
     <span class="rating">{subtitle}</span>

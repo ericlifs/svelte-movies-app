@@ -29,6 +29,7 @@
   import GridItem from '@components/GridItem.svelte'
   import Grid from '@components/Grid.svelte'
 
+  import { getUrlForAsset } from '@config'
   import { getRandomItemOfArray } from '@helpers/array'
   import { getGenresForPopularMovie } from '@helpers/movies'
   import { maxLength } from '@helpers/string'
@@ -98,7 +99,7 @@
 <MovieHero
   title={currentHeroMovie.title}
   description={maxLength(currentHeroMovie.overview, 200)}
-  background={`http://image.tmdb.org/t/p/w1280/${currentHeroMovie.backdrop_path}`}
+  background={getUrlForAsset(currentHeroMovie.backdrop_path, 1280)}
   on:click={() => goToMoviePage(currentHeroMovie.id)} />
 <MovieSubHero
   rating={currentHeroMovie.vote_average}
